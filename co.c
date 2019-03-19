@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
-#include <windef.h>
+#include <stdbool.h>
 #include "co.h"
 
 #define MAX_CO 10
