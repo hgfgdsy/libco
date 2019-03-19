@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <windef.h>
 #include "co.h"
 
 #define MAX_CO 10
@@ -28,7 +29,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   int my_temp = my_cnt;
   asm volatile("mov " SP ", %0; mov %1, " SP :
 		  "=g"(coroutines[my_cnt].backup) :
-		  "g"((coroutines[my_cnt].stack+4096)&(~0xf)));
+		  "g"(((int)(coroutines[my_cnt].stack+4096))&(~0xf)));
   func(arg); // Test #2 hangs
   asm volatile("mov %0," SP : : "g"(coroutines[my_temp].backup));
   return (struct co*)(&coroutines[my_temp]);
