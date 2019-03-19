@@ -34,7 +34,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 		  "g"(coroutines[my_cnt].stack+4096));
   func(arg); // Test #2 hangs
   asm volatile("mov %0," SP : : "g"(coroutines[my_temp].backup));
-  printf("%d\n",my_cnt);
+//  printf("%d\n",my_cnt);
   return (struct co*)(&coroutines[my_temp]);
 }
 
