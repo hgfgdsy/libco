@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "co.h"
 
 #define MAX_CO 10
@@ -16,7 +17,7 @@ struct co {
 
 };
 
-int cnt=0;
+int my_cnt=0;
 
 struct co coroutines[MAX_CO];
 
@@ -30,7 +31,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 		  "g"((coroutines[my_cnt].stack+4096)&(~0xf)));
   func(arg); // Test #2 hangs
   asm volatile("mov %0," SP : : "g"(coroutines[my_temp].backup));
-  return coroutines[my_temp];
+  return (struct co*)coroutines[my_temp];
 }
 
 void co_yield() {
