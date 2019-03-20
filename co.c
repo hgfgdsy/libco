@@ -46,6 +46,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 		  "=g"(coroutines->backup) :
 		  "g"(coroutines->stack+4096));
   current = coroutines;
+  printf("Are you?");
   func(arg); // Test #2 hangs
   current -> state = false;
   waiting[current->label] = waiting[my_cnt];
