@@ -71,6 +71,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 //  else{
 //  return waiting[my_cnt];
 //  }
+   return waiting[my_cnt];
 }
 
 void co_yield() {
