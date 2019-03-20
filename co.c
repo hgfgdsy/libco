@@ -15,11 +15,11 @@
 //srand(time(NULL));
 
 struct co {
-	uint8_t stack[1<<20];
 	void *backup;
 	bool state;
 	jmp_buf my_buf;
 	int label;
+	uint8_t stack[1<<20];
 }__attribute__((aligned(16)));
 
 //struct co *waiting[40];
@@ -84,6 +84,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 
 void co_yield() {
   int my_val = setjmp(current->my_buf);
+  printf("address = %d\n",(int)&my_val);
   printf("%d\t%d\n",my_val,current->label);
   if(my_val==0){
 	  bool decide=false;
