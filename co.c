@@ -80,7 +80,7 @@ void co_yield() {
 	  int my_select = rand()%(my_cnt)+1;
 	  printf("yieldselect=%d\n",my_select);
 	  current = waiting[my_select];
-	  longjmp(waiting[my_select]->my_buf,waiting[my_select]->label);
+	  longjmp(waiting[my_select]->my_buf,current->label);
   }
   else printf("Are you sure?\n");
   return ;
