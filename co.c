@@ -82,6 +82,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   printf("Here?\n");
   while(!decide){
   select1 = rand()%(my_cnt) +1;
+  printf("select1=%d\n");
   decide = waiting[select1].state;
   }
   printf("So may here?\n");
