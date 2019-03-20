@@ -50,6 +50,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   current = coroutines;
 //  printf("Are you?");
   func(arg); // Test #2 hangs
+  printf("Have you finished?\n");
   current -> state = false;
   waiting[current->label] = waiting[my_cnt];
   my_cnt--;
