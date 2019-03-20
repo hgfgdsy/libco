@@ -23,7 +23,7 @@ struct co {
 }__attribute__((aligned(16)));
 
 //struct co *waiting[40];
-int my_cnt=2;
+int my_cnt=1;
 int select1;
 struct co *current;
 struct co waiting[40];
@@ -37,7 +37,7 @@ void co_init() {
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
-//  my_cnt++;
+  my_cnt++;
   //  int my_temp = my_cnt;
 /*  struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
 
@@ -54,15 +54,14 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 		  "g"(waiting[my_cnt].stack+(1<<12)));
 */
 //  printf("%ld\n",(long int)(waiting[my_cnt].stack+(1<<12)));
-  __stack = waiting[my_cnt].stack;
+  __stack = waiting[my_cnt].stack+sizeof(waiting[my_cnt].stack);
   asm volatile("mov " SP ", %0; mov %1, " SP :
                  "=g"(__stack_backup) :
-                 "g"(__stack+(1<<15)));
+                 "g"(__stack));
   waiting[my_cnt].backup = __stack_backup;
   current = (struct co*)&waiting[my_cnt];
   waiting[my_cnt].state = true;
   waiting[my_cnt].label = my_cnt;
-  my_cnt++;
 //  current = waiting[cnt];
   printf("We start!\n");
   func(arg); // Test #2 hangs
