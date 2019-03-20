@@ -51,7 +51,7 @@ struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t
   if(i==0){
   asm volatile("mov " SP ", %0; mov %1, " SP :
 		  "=g"(coroutines->backup) :
-		  "g"(coroutines->stack+4096));
+		  "g"(coroutines->stack+8192));
 //  current = coroutines;
 //  printf("Are you?");
   waiting[my_cnt] = coroutines;
