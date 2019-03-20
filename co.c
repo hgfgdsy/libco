@@ -19,7 +19,7 @@ struct co {
 	bool state;
 	jmp_buf my_buf;
 	int label;
-	uint8_t stack[1<<12];
+	uint8_t stack[1<<15];
 }__attribute__((aligned(16)));
 
 //struct co *waiting[40];
@@ -57,12 +57,12 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   __stack = waiting[my_cnt].stack;
   asm volatile("mov " SP ", %0; mov %1, " SP :
                  "=g"(__stack_backup) :
-                 "g"(__stack+(1<<12)));
+                 "g"(__stack+(1<<15)));
   waiting[my_cnt].backup = __stack_backup;
-  my_cnt++;
   current = (struct co*)&waiting[my_cnt];
   waiting[my_cnt].state = true;
   waiting[my_cnt].label = my_cnt;
+  my_cnt++;
 //  current = waiting[cnt];
   printf("We start!\n");
   func(arg); // Test #2 hangs
