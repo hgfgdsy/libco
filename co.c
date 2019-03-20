@@ -44,7 +44,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   waiting[my_cnt]->state = true;
   waiting[my_cnt]->label = my_cnt;
   current = coroutines;*/
-struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
+  struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
 
 
   int i = setjmp(waiting[1]->my_buf);
@@ -66,7 +66,7 @@ struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t
   current = waiting[select];
   longjmp(waiting[select]->my_buf,waiting[select]->label); 
   asm volatile("mov %0," SP : : "g"(coroutines->backup));
-    return waiting[my_cnt];
+//    return waiting[my_cnt];
   }
   else{
   return waiting[my_cnt];
