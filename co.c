@@ -84,7 +84,6 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 
 void co_yield() {
   int my_val = setjmp(current->my_buf);
-  printf("address = %lld\n",&my_val);
   printf("%d\t%d\n",my_val,current->label);
   if(my_val==0){
 	  bool decide=false;
