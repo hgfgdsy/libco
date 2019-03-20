@@ -79,6 +79,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 //  my_cnt--;
   bool decide = false;
   int my_temp = current->label;
+  printf("Here?\n");
   while(!decide){
   select1 = rand()%(my_cnt) +1;
   decide = waiting[select1].state;
