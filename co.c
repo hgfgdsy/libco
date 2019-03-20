@@ -52,6 +52,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 		  "=g"(waiting[my_cnt].backup) :
 		  "g"(waiting[my_cnt].stack+(1<<12)));
 */
+  printf("%ld",&waiting[my_cnt].stack+(1<<12));
   asm volatile("mov " SP ", %0; mov %1, " SP :
                  "=g"(waiting[my_cnt].backup) :
                  "g"(waiting[my_cnt].stack+(1<<12)));
@@ -82,7 +83,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 //  return waiting[my_cnt];
   }
   else{
-//  printf("We back!\n");
+  printf("We back!\n");
   return (struct co*)&waiting[my_cnt];
   }
 //   return waiting[my_cnt];
