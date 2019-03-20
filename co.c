@@ -43,38 +43,38 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   waiting[my_cnt]->label = my_cnt;
   current = coroutines;*/
   waiting[my_cnt] = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
-  current = waiting[my_cnt];
-  int i = setjmp(waiting[1]->my_buf);
-  if(i==0){
+/*  current = waiting[my_cnt];
+*/  int i = setjmp(waiting[1]->my_buf);
+//  if(i==0){
   asm volatile("mov " SP ", %0; mov %1, " SP :
 		  "=g"(waiting[my_cnt]->backup) :
 		  "g"(waiting[my_cnt]->stack+(1<<15)));
-  waiting[my_cnt]->state = true;
-  waiting[my_cnt]->label = my_cnt;
+//  waiting[my_cnt]->state = true;
+//  waiting[my_cnt]->label = my_cnt;
 //  current = waiting[cnt];
   printf("We start!\n");
   func(arg); // Test #2 hangs
 //asm volatile("mov %0," SP : : "g"(coroutines->backup));
   printf("Have you finished?\n");
   printf("Kao a\n");
-  current -> state = false;
+/*  current -> state = false;
   waiting[my_cnt+1] = waiting[current->label];
   waiting[current->label] = waiting[my_cnt];
   my_cnt--;
   select1 = rand()%(my_cnt) +1;
   current = waiting[select1];
   longjmp(waiting[select1]->my_buf,waiting[select1]->label); 
-  asm volatile("mov %0," SP : : "g"(waiting[my_cnt+2]->backup));
+*/  asm volatile("mov %0," SP : : "g"(waiting[my_cnt+2]->backup));
 //  longjmp(waiting[select1]->my_buf,waiting[select1]->label);
   //    return waiting[my_cnt];
-  }
-  else{
-  return waiting[my_cnt];
-  }
+//  }
+//  else{
+//  return waiting[my_cnt];
+//  }
 }
 
 void co_yield() {
-  int my_val = setjmp(current->my_buf);
+/*  int my_val = setjmp(current->my_buf);
   printf("%d\t%d\n",my_val,current->label);
   if(my_val==0){
 	  int my_select = rand()%(my_cnt)+1;
@@ -83,11 +83,11 @@ void co_yield() {
 	  longjmp(waiting[my_select]->my_buf,current->label);
   }
   else printf("Are you sure?\n");
-  return ;
+  return ;*/
 }
 
 void co_wait(struct co *thd) {
-  setjmp(current->my_buf);
+/*  setjmp(current->my_buf);
   printf("%d\n",thd->label);
   if(thd->state){
 	  int se = rand()%(my_cnt-1)+2;
@@ -97,6 +97,6 @@ void co_wait(struct co *thd) {
   }
   else {
 //	  free(thd);
-  }
+  }*/
 }
 
