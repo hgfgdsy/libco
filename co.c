@@ -76,6 +76,7 @@ void co_yield() {
 
 void co_wait(struct co *thd) {
   setjmp(current->my_buf);
+  printf("%d\n",thd->label);
   if(thd->state){
 	  int se = rand()%(my_cnt)+1;
 	  current = waiting[se];
