@@ -31,11 +31,11 @@ struct co *current;
 
 void co_init() {
   current = waiting[0] = (struct co*)malloc(sizeof(struct co));
-  srand(time(NULL));printf("Are you?");
+  srand(time(NULL));
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
-  my_cnt++;printf("Are you?");
+  my_cnt++;printf("Are you?\n");
 //  int my_temp = my_cnt;
   struct co *coroutines = (struct co*)malloc(sizeof(struct co));
   waiting[my_cnt]->state = true;
