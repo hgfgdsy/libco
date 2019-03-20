@@ -19,7 +19,7 @@ struct co {
 	bool state;
 	jmp_buf my_buf;
 	int label;
-	int extra;
+	int extra,t1,t2;
 	uint8_t stack[1<<15];
 }__attribute__((aligned(16)));
 
