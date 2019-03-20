@@ -68,6 +68,7 @@ struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t
   current = waiting[select];
   longjmp(waiting[select]->my_buf,waiting[select]->label); 
 */  asm volatile("mov %0," SP : : "g"(coroutines->backup));
+    return waiting[my_cnt];
   }
   else{
   return waiting[my_cnt];
