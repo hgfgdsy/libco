@@ -76,7 +76,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 //  return waiting[my_cnt];
   }
   else{
-  printf("We back!\n");
+ // printf("We back!\n");
   return (struct co*)&waiting[my_cnt];
   }
 //   return waiting[my_cnt];
