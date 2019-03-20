@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <setjmp.h>
+#include <stdlib.h>
 #include "co.h"
 
 #define MAX_CO 10
@@ -12,38 +13,71 @@
   #define SP "%%rsp"
 #endif
 
+srand(time(NULL));
+
 struct co {
 	uint8_t stack[4096];
 	void *backup;
 	bool state;
 	jmp_buf my_buf;
+	int label;
 };
 
+struct co *waiting[40];
 int my_cnt=0;
 
-struct co coroutines[MAX_CO];
-//struct co *current;
+struct co *current;
 
 void co_init() {
+  current = waiting[0] = (struct co*)malloc(sizeof(struct co));
+
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
-  int my_temp = my_cnt;
+  my_cnt++;
+//  int my_temp = my_cnt;
+  struct co *coroutines = (struct co*)malloc(sizeof(struct co));
+  waiting[cnt]->state = true;
+  waiting[cnt]->label = my_cnt;
+  int i = setjmp(waiting[0]->my_buf);
+  if(i==0){
   asm volatile("mov " SP ", %0; mov %1, " SP :
-		  "=g"(coroutines[my_cnt].backup) :
-		  "g"(coroutines[my_cnt].stack+4096));
+		  "=g"(coroutines->backup) :
+		  "g"(coroutines->stack+4096));
+  current = coroutines;
   func(arg); // Test #2 hangs
-  asm volatile("mov %0," SP : : "g"(coroutines[my_temp].backup));
-//  printf("%d\n",my_cnt);
-  return (struct co*)(&coroutines[my_temp]);
+  current -> state = false;
+  waiting[current->label] = waiting[my_cnt];
+  my_cnt--;
+  int select = rand()%(my_cnt+1) +0;
+  current = waiting[select];
+  longjmp(waiting[select]->my_buf,waiting[select]->label); 
+  asm volatile("mov %0," SP : : "g"(coroutines->backup));
+  }
+  else{
+  return waiting[my_cnt];
+  }
 }
 
 void co_yield() {
-/*  int my_val = setjump(current->buf);
-  if(val==0){
-*/
+  int my_val = setjump(current->my_buf);
+  if(my_val==0){
+	  int my_select = rand()%(my_cnt+1)+0;
+	  current = waiting[my_select];
+	  longjmp(waiting[my_select]->my_buf,waiting[my_select]->label);
+  }
+  else return ;
 }
 
 void co_wait(struct co *thd) {
+  int last = setjmp(current->my_buf;)
+  if(thd->state){
+	  int se = rand()%(my_cnt)+1;
+	  current = waiting[se];
+	  longjmp(waiting[se]->my_buf,waiting[se]->label);
+  }
+  else {
+	  free(thd);
+  }
 }
 
