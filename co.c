@@ -36,7 +36,7 @@ void co_init() {
   waiting[1].label = 1;
   waiting[1].state = true;
   srand(time(NULL));
-  printf("SP="SP"\n");
+//  printf("SP="SP"\n");
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
@@ -70,10 +70,10 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   waiting[my_cnt].state = true;
   waiting[my_cnt].label = my_cnt;
 //  current = waiting[cnt];
-  printf("We start!\n"); 
+//  printf("We start!\n"); 
   my_func(my_arg); // Test #2 hangs
-  printf("Have you finished?\n");
-  printf("Kao a\n");
+//  printf("Have you finished?\n");
+//  printf("Kao a\n");
   current -> state = false;
 //  waiting[my_cnt+1] = waiting[current->label];
 //  waiting[current->label] = waiting[my_cnt];
@@ -92,7 +92,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 //  return waiting[my_cnt];
   }
   else{
-  printf("We back!\n");
+//  printf("We back!\n");
   return (struct co*)&waiting[my_cnt];
   }
 //   return waiting[my_cnt];
@@ -100,7 +100,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 
 void co_yield() {
   int my_val = setjmp(current->my_buf);
-  printf("%d\t%d\n",my_val,current->label);
+//  printf("%d\t%d\n",my_val,current->label);
   if(my_val==0){
 	  bool decide=false;
 	  int my_select;
@@ -108,17 +108,17 @@ void co_yield() {
 	  my_select = rand()%(my_cnt)+1;
 	  decide = waiting[my_select].state;
 	  }
-	  printf("yieldselect=%d\n",my_select);
+//	  printf("yieldselect=%d\n",my_select);
 	  current = (struct co*)&waiting[my_select];
 	  longjmp(waiting[my_select].my_buf,current->label);
   }
-  else printf("Are you sure?\n");
+//  else printf("Are you sure?\n");
 //  return ;
 }
 
 void co_wait(struct co *thd) {
   setjmp(current->my_buf);
-  printf("%d\n",thd->label);
+//  printf("%d\n",thd->label);
   if(thd->state){
 //	  int se = rand()%(my_cnt-1)+2;
 //	  printf("select=%d\n",se);
