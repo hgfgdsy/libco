@@ -38,10 +38,9 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   my_cnt++;
   //  int my_temp = my_cnt;
   struct co *coroutines = (struct co*)malloc(sizeof(struct co));
+  waiting[my_cnt] = coroutines;
   waiting[my_cnt]->state = true;
   waiting[my_cnt]->label = my_cnt;
-printf("Are you?\n");
-
   int i = setjmp(waiting[0]->my_buf);
   if(i==0){
   asm volatile("mov " SP ", %0; mov %1, " SP :
