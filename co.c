@@ -31,6 +31,7 @@ struct co *current;
 
 void co_init() {
   current = waiting[1] = (struct co*)malloc(sizeof(struct co));
+  waiting[1]->label = 1;
   srand(time(NULL));
 }
 
