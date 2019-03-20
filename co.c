@@ -17,7 +17,7 @@
 //srand(time(NULL));
 
 struct co {
-	uint8_t stack[4096];
+	uint8_t stack[8192];
 	void *backup;
 	bool state;
 	jmp_buf my_buf;
