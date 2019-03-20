@@ -37,7 +37,8 @@ void co_init() {
 struct co* co_start(const char *name, func_t func, void *arg) {
   my_cnt++;
   //  int my_temp = my_cnt;
-  struct co *coroutines = (struct co*)malloc(sizeof(struct co));
+  struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\n");
+
   waiting[my_cnt] = coroutines;
   waiting[my_cnt]->state = true;
   waiting[my_cnt]->label = my_cnt;
