@@ -21,7 +21,6 @@ struct co {
 	bool state;
 	jmp_buf my_buf;
 	int label;
-	int extra;
 	uint8_t stack[1<<15];
 }__attribute__((aligned(16)));
 
@@ -29,7 +28,7 @@ struct co {
 int my_cnt=1;
 int select1;
 struct co *current;
-__attribute__((aligned))struct co waiting[40];
+struct co waiting[40];
 
 void co_init() {
   current = (struct co*)&waiting[1];
