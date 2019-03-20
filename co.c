@@ -78,7 +78,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   }
   current = (struct co*)&waiting[select1];
   longjmp(waiting[select1].my_buf,waiting[select1].label); 
-  asm volatile("mov %0," SP : : "g"(waiting[my_temp].backup));
+  asm volatile("mov %0,%%rsp"  : : "g"(waiting[my_temp].backup));
 //  longjmp(waiting[select1]->my_buf,waiting[select1]->label);
 //  return waiting[my_cnt];
   }
