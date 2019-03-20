@@ -11,7 +11,8 @@
 #elif defined(__x86_64__)
   #define SP "%%rsp"
 #endif
-
+uint8_t *__stack;
+void *__stack_backup;
 //srand(time(NULL));
 struct co {
 	void *backup;
@@ -52,10 +53,12 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 		  "=g"(waiting[my_cnt].backup) :
 		  "g"(waiting[my_cnt].stack+(1<<12)));
 */
-  printf("%ld\n",(long int)(waiting[my_cnt].stack+(1<<12)));
+//  printf("%ld\n",(long int)(waiting[my_cnt].stack+(1<<12)));
+  __stack = waiting[my_cnt].stack;
   asm volatile("mov " SP ", %0; mov %1, " SP :
-                 "=g"(waiting[my_cnt].backup) :
-                 "g"(waiting[my_cnt].stack+(1<<12)));
+                 "=g"(__stack_backup) :
+                 "g"(__stack+(1<<12)));
+  waiting[my_cnt].backup = __stack_backup;
   my_cnt++;
   current = (struct co*)&waiting[my_cnt];
   waiting[my_cnt].state = true;
@@ -78,7 +81,8 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   }
   current = (struct co*)&waiting[select1];
   longjmp(waiting[select1].my_buf,waiting[select1].label); 
-  asm volatile("mov %0, " SP : : "g"(waiting[my_temp].backup));
+  __stack_backup = waiting[my_temp].backup;
+  asm volatile("mov %0, " SP : : "g"(__stack_backup));
 //  longjmp(waiting[select1]->my_buf,waiting[select1]->label);
 //  return waiting[my_cnt];
   }
