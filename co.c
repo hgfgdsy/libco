@@ -31,7 +31,7 @@ struct co *current;
 
 void co_init() {
   current = waiting[0] = (struct co*)malloc(sizeof(struct co));
-  srand(time(NULL));
+  srand(time(NULL));printf("Are you?");
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
