@@ -51,7 +51,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   asm volatile("mov " SP ", %0 ; mov %1, " SP:
 		  "=g"(waiting[my_cnt].backup) :
 		  "g"(waiting[my_cnt].stack+(1<<12)));
-  cnt++;
+  my_cnt++;
   current = (struct co*)&waiting[my_cnt];
   waiting[my_cnt].state = true;
   waiting[my_cnt].label = my_cnt;
