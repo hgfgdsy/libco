@@ -43,12 +43,13 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   waiting[my_cnt] = coroutines;
   waiting[my_cnt]->state = true;
   waiting[my_cnt]->label = my_cnt;
+  current = coroutines;
   int i = setjmp(waiting[1]->my_buf);
   if(i==0){
   asm volatile("mov " SP ", %0; mov %1, " SP :
 		  "=g"(coroutines->backup) :
 		  "g"(coroutines->stack+4096));
-  current = coroutines;
+//  current = coroutines;
 //  printf("Are you?");
   func(arg); // Test #2 hangs
   printf("Have you finished?\n");
