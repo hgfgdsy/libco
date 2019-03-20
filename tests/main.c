@@ -20,9 +20,9 @@ static void work_loop(void *arg) {
         printf("%s%d  ", s, get_count());
         add_count();
         co_yield();
-	printf("Are you %s\n",s);
+//	printf("Are you %s\n",s);
     }
-    printf("Done?\n");
+//    printf("Done?\n");
 }
 
 static void work(void *arg) {
