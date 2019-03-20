@@ -26,7 +26,7 @@ struct co {
 int my_cnt=1;
 int select1;
 struct co *current;
-struct co waiting[40];
+__attribute__((aligned))struct co waiting[40];
 
 void co_init() {
   current = (struct co*)&waiting[1];
