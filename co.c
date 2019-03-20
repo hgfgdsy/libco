@@ -49,12 +49,12 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   asm volatile("mov " SP ", %0; mov %1, " SP :
 		  "=g"(waiting[my_cnt]->backup) :
 		  "g"(waiting[my_cnt]->stack+(1<<15)));
-  waiting[my_cnt]->state = false;
+  waiting[my_cnt]->state = true;
   waiting[my_cnt]->label = my_cnt;
 //  current = waiting[cnt];
   printf("We start!\n");
   func(arg); // Test #2 hangs
-/*  printf("Have you finished?\n");
+  printf("Have you finished?\n");
   printf("Kao a\n");
   current -> state = false;
   waiting[my_cnt+1] = waiting[current->label];
@@ -62,7 +62,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   my_cnt--;
   select1 = rand()%(my_cnt) +1;
   current = waiting[select1];
-*/  longjmp(waiting[select1]->my_buf,waiting[select1]->label); 
+  longjmp(waiting[select1]->my_buf,waiting[select1]->label); 
   asm volatile("mov %0," SP : : "g"(waiting[my_cnt+2]->backup));
 //  longjmp(waiting[select1]->my_buf,waiting[select1]->label);
 //  return waiting[my_cnt];
