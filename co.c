@@ -59,6 +59,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   func(arg); // Test #2 hangs
 //asm volatile("mov %0," SP : : "g"(coroutines->backup));
   printf("Have you finished?\n");
+  printf("Kao a\n");
   current -> state = false;
   waiting[current->label] = waiting[my_cnt];
   my_cnt--;
