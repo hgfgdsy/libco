@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <setjmp.h>
 #include <stdlib.h>
+#include <time.h>
 #include "co.h"
 
 #define MAX_CO 10
@@ -70,7 +71,7 @@ void co_yield() {
 }
 
 void co_wait(struct co *thd) {
-  int last = setjmp(current->my_buf);
+  setjmp(current->my_buf);
   if(thd->state){
 	  int se = rand()%(my_cnt)+1;
 	  current = waiting[se];
