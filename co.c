@@ -119,8 +119,13 @@ void co_wait(struct co *thd) {
   setjmp(current->my_buf);
 //  printf("%d\n",thd->label);
   if(thd->state){
-	  int se = rand()%(my_cnt-1)+2;
-//	  printf("select=%d\n",se);
+	  //	  printf("select=%d\n",se);
+          bool decide = false;
+	  int se;
+	  while(!decide){
+          se = rand()%(my_cnt-1)+2;
+	  decide = waiting[se].state;
+	  }
 	  current = (struct co*)&waiting[se];
 	  longjmp(waiting[se].my_buf,1);
   }
