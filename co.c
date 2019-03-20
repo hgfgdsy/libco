@@ -13,6 +13,8 @@
 #endif
 uint8_t *__stack;
 void *__stack_backup;
+func_t my_func;
+void * my_arg;
 //srand(time(NULL));
 struct co {
 	void *backup;
@@ -39,6 +41,8 @@ void co_init() {
 
 struct co* co_start(const char *name, func_t func, void *arg) {
   my_cnt++;
+  my_func = func;
+  my_arg = arg;
   //  int my_temp = my_cnt;
 /*  struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
 
@@ -67,7 +71,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   waiting[my_cnt].label = my_cnt;
 //  current = waiting[cnt];
   printf("We start!\n"); 
-  func(arg); // Test #2 hangs
+  my_func(my_arg); // Test #2 hangs
   printf("Have you finished?\n");
   printf("Kao a\n");
   current -> state = false;
