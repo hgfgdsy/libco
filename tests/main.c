@@ -22,6 +22,7 @@ static void work_loop(void *arg) {
         co_yield();
 	printf("Are you %s\n",s);
     }
+    printf("Done?\n");
 }
 
 static void work(void *arg) {
