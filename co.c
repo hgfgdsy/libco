@@ -25,12 +25,12 @@ struct co {
 };
 
 struct co *waiting[40];
-int my_cnt=0;
+int my_cnt=1;
 
 struct co *current;
 
 void co_init() {
-  current = waiting[0] = (struct co*)malloc(sizeof(struct co));
+  current = waiting[1] = (struct co*)malloc(sizeof(struct co));
   srand(time(NULL));
 }
 
@@ -42,7 +42,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   waiting[my_cnt] = coroutines;
   waiting[my_cnt]->state = true;
   waiting[my_cnt]->label = my_cnt;
-  int i = setjmp(waiting[0]->my_buf);
+  int i = setjmp(waiting[1]->my_buf);
   if(i==0){
   asm volatile("mov " SP ", %0; mov %1, " SP :
 		  "=g"(coroutines->backup) :
@@ -54,7 +54,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   current -> state = false;
   waiting[current->label] = waiting[my_cnt];
   my_cnt--;
-  int select = rand()%(my_cnt+1) +0;
+  int select = rand()%(my_cnt) +1;
   current = waiting[select];
   longjmp(waiting[select]->my_buf,waiting[select]->label); 
   asm volatile("mov %0," SP : : "g"(coroutines->backup));
@@ -68,7 +68,7 @@ void co_yield() {
   int my_val = setjmp(current->my_buf);
   printf("%d\t%d\n",my_val,current->label);
   if(my_val==0){
-	  int my_select = rand()%(my_cnt+1)+0;
+	  int my_select = rand()%(my_cnt)+1;
 	  printf("yieldselect=%d\n",my_select);
 	  current = waiting[my_select];
 	  longjmp(waiting[my_select]->my_buf,waiting[my_select]->label);
@@ -80,7 +80,7 @@ void co_wait(struct co *thd) {
   setjmp(current->my_buf);
   printf("%d\n",thd->label);
   if(thd->state){
-	  int se = rand()%(my_cnt)+1;
+	  int se = rand()%(my_cnt-1)+2;
 	  printf("select=%d\n",se);
 	  current = waiting[se];
 	  longjmp(waiting[se]->my_buf,waiting[se]->label);
