@@ -13,7 +13,7 @@
   #define SP "%%rsp"
 #endif
 
-srand(time(NULL));
+//srand(time(NULL));
 
 struct co {
 	uint8_t stack[4096];
@@ -30,15 +30,15 @@ struct co *current;
 
 void co_init() {
   current = waiting[0] = (struct co*)malloc(sizeof(struct co));
-
+  srand(time(NULL));
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
   my_cnt++;
 //  int my_temp = my_cnt;
   struct co *coroutines = (struct co*)malloc(sizeof(struct co));
-  waiting[cnt]->state = true;
-  waiting[cnt]->label = my_cnt;
+  waiting[my_cnt]->state = true;
+  waiting[my_cnt]->label = my_cnt;
   int i = setjmp(waiting[0]->my_buf);
   if(i==0){
   asm volatile("mov " SP ", %0; mov %1, " SP :
@@ -60,7 +60,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 }
 
 void co_yield() {
-  int my_val = setjump(current->my_buf);
+  int my_val = setjmp(current->my_buf);
   if(my_val==0){
 	  int my_select = rand()%(my_cnt+1)+0;
 	  current = waiting[my_select];
@@ -70,7 +70,7 @@ void co_yield() {
 }
 
 void co_wait(struct co *thd) {
-  int last = setjmp(current->my_buf;)
+  int last = setjmp(current->my_buf);
   if(thd->state){
 	  int se = rand()%(my_cnt)+1;
 	  current = waiting[se];
