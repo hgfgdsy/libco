@@ -35,7 +35,7 @@ void co_init() {
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
-  my_cnt++;
+  my_cnt++;printf("Are you?");
 //  int my_temp = my_cnt;
   struct co *coroutines = (struct co*)malloc(sizeof(struct co));
   waiting[my_cnt]->state = true;
@@ -46,7 +46,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 		  "=g"(coroutines->backup) :
 		  "g"(coroutines->stack+4096));
   current = coroutines;
-  printf("Are you?");
+//  printf("Are you?");
   func(arg); // Test #2 hangs
   current -> state = false;
   waiting[current->label] = waiting[my_cnt];
