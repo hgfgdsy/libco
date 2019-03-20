@@ -15,7 +15,7 @@
 //srand(time(NULL));
 
 struct co {
-	uint8_t stack[1<<15];
+	uint8_t stack[1<<20];
 	void *backup;
 	bool state;
 	jmp_buf my_buf;
@@ -50,7 +50,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   if(i==0){
   asm volatile("mov " SP ", %0; mov %1, " SP :
 		  "=g"(waiting[my_cnt].backup) :
-		  "g"(waiting[my_cnt].stack+(1<<15)));
+		  "g"(waiting[my_cnt].stack+(1<<20)));
   waiting[my_cnt].state = true;
   waiting[my_cnt].label = my_cnt;
 //  current = waiting[cnt];
