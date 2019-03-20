@@ -20,7 +20,7 @@ static void work_loop(void *arg) {
         printf("%s%d  ", s, get_count());
         add_count();
         co_yield();
-	printf("Are you X?\n");
+	printf("Are you %s\n",s);
     }
 }
 
