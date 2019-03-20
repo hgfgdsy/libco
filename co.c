@@ -54,7 +54,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 		  "g"(waiting[my_cnt].stack+(1<<12)));
 */
 //  printf("%ld\n",(long int)(waiting[my_cnt].stack+(1<<12)));
-  __stack = waiting[my_cnt].stack+sizeof(waiting[my_cnt].stack);
+  __stack = (waiting[my_cnt].stack+sizeof(waiting[my_cnt].stack))&~0xf;
   int vao=0;
   printf("%d\n",vao);
   asm volatile("mov " SP ", %0; mov %1, " SP :
