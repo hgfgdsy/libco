@@ -45,7 +45,6 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   waiting[my_cnt]->label = my_cnt;
   current = coroutines;*/
   struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
-  if(coroutines == NULL) printf("fuck\n");
 
   int i = setjmp(waiting[1]->my_buf);
   if(i==0){
