@@ -60,14 +60,14 @@ struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t
   current = coroutines;
   func(arg); // Test #2 hangs
 //asm volatile("mov %0," SP : : "g"(coroutines->backup));
-  printf("Have you finished?\n");
+/*  printf("Have you finished?\n");
   current -> state = false;
   waiting[current->label] = waiting[my_cnt];
   my_cnt--;
   int select = rand()%(my_cnt) +1;
   current = waiting[select];
   longjmp(waiting[select]->my_buf,waiting[select]->label); 
-  asm volatile("mov %0," SP : : "g"(coroutines->backup));
+*/  asm volatile("mov %0," SP : : "g"(coroutines->backup));
   }
   else{
   return waiting[my_cnt];
@@ -88,7 +88,7 @@ void co_yield() {
 }
 
 void co_wait(struct co *thd) {
-  setjmp(current->my_buf);
+/*  setjmp(current->my_buf);
   printf("%d\n",thd->label);
   if(thd->state){
 	  int se = rand()%(my_cnt-1)+2;
@@ -98,6 +98,6 @@ void co_wait(struct co *thd) {
   }
   else {
 	  free(thd);
-  }
+  }*/
 }
 
