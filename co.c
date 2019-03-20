@@ -84,6 +84,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   select1 = rand()%(my_cnt) +1;
   decide = waiting[select1].state;
   }
+  printf("So may here?\n");
   current = (struct co*)&waiting[select1];
   printf("Can you come here?\n");
   longjmp(waiting[select1].my_buf,waiting[select1].label); 
