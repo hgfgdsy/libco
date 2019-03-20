@@ -65,8 +65,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   waiting[my_cnt].label = my_cnt;
 //  current = waiting[cnt];
   printf("We start!\n");
-  void *my_arg = arg;
-  func(my_arg); // Test #2 hangs
+  func(arg); // Test #2 hangs
   printf("Have you finished?\n");
   printf("Kao a\n");
   current -> state = false;
