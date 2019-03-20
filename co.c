@@ -21,7 +21,7 @@ struct co {
 	bool state;
 	jmp_buf my_buf;
 	int label;
-	uint8_t stack[1<<15];
+	uint8_t stack[1<<12];
 }__attribute__((aligned(16)));
 
 //struct co *waiting[40];
