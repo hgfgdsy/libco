@@ -5,15 +5,21 @@
 #include <stdlib.h>
 #include <time.h>
 #include "co.h"
-
+/*
 #if defined(__i386__)
 # define SP "%%esp"
 #elif defined(__x86_64__)
   #define SP "%%rsp"
 #endif
-
+*/
 //srand(time(NULL));
+char sys1[10]="%%rsp",sys2[10]="%%esp";
 
+char *SP;
+void pan(){
+	if(sizeof(void*)==8) SP=sys1;
+	else SP=sys2;
+}
 struct co {
 	void *backup;
 	bool state;
@@ -32,6 +38,7 @@ void co_init() {
   current = (struct co*)&waiting[1];
   waiting[1].label = 1;
   waiting[1].state = true;
+  pan();
   srand(time(NULL));
 }
 
