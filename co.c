@@ -75,6 +75,7 @@ void co_yield() {
 	  longjmp(waiting[my_select]->my_buf,waiting[my_select]->label);
   }
   else printf("Are you sure?\n");
+  return ;
 }
 
 void co_wait(struct co *thd) {
