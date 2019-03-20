@@ -55,6 +55,8 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 */
 //  printf("%ld\n",(long int)(waiting[my_cnt].stack+(1<<12)));
   __stack = waiting[my_cnt].stack+sizeof(waiting[my_cnt].stack);
+  int vao=0;
+  printf("%d\n",vao);
   asm volatile("mov " SP ", %0; mov %1, " SP :
                  "=g"(__stack_backup) :
                  "g"(__stack));
@@ -63,9 +65,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   waiting[my_cnt].state = true;
   waiting[my_cnt].label = my_cnt;
 //  current = waiting[cnt];
-  printf("We start!\n");
-  int vao=0;
-  printf("%d\n",vao);
+  printf("We start!\n"); 
   func(arg); // Test #2 hangs
   printf("Have you finished?\n");
   printf("Kao a\n");
