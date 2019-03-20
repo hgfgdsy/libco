@@ -36,7 +36,7 @@ void co_init() {
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
-  my_cnt++;
+//  my_cnt++;
   //  int my_temp = my_cnt;
 /*  struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
 
@@ -47,17 +47,15 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
 
 
-  int i = setjmp(waiting[1]->my_buf);
-  if(i==0){
+//  int i = setjmp(waiting[1]->my_buf);
+//  if(i==0){
   asm volatile("mov " SP ", %0; mov %1, " SP :
 		  "=g"(coroutines->backup) :
 		  "g"(coroutines->stack+8192));
-//  current = coroutines;
-//  printf("Are you?");
-  waiting[my_cnt] = coroutines;
+/*  waiting[my_cnt] = coroutines;
   waiting[my_cnt]->state = true;
   waiting[my_cnt]->label = my_cnt;
-  current = coroutines;
+  current = coroutines;*/
   func(arg); // Test #2 hangs
 //asm volatile("mov %0," SP : : "g"(coroutines->backup));
 /*  printf("Have you finished?\n");
@@ -68,15 +66,16 @@ struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t
   current = waiting[select];
   longjmp(waiting[select]->my_buf,waiting[select]->label); 
 */  asm volatile("mov %0," SP : : "g"(coroutines->backup));
-    return waiting[my_cnt];
-  }
-  else{
-  return waiting[my_cnt];
-  }
+//    return waiting[my_cnt];
+//  }
+//  else{
+//  return waiting[my_cnt];
+//  }
+  return coroutines;
 }
 
 void co_yield() {
-  int my_val = setjmp(current->my_buf);
+/*  int my_val = setjmp(current->my_buf);
   printf("%d\t%d\n",my_val,current->label);
   if(my_val==0){
 	  int my_select = rand()%(my_cnt)+1;
@@ -85,11 +84,11 @@ void co_yield() {
 	  longjmp(waiting[my_select]->my_buf,current->label);
   }
   else printf("Are you sure?\n");
-  return ;
+  return ;*/
 }
 
 void co_wait(struct co *thd) {
-  setjmp(current->my_buf);
+/*  setjmp(current->my_buf);
   printf("%d\n",thd->label);
   if(thd->state){
 	  int se = rand()%(my_cnt-1)+2;
@@ -99,6 +98,6 @@ void co_wait(struct co *thd) {
   }
   else {
 //	  free(thd);
-  }
+  }*/
 }
 
