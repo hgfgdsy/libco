@@ -22,7 +22,7 @@ struct co {
 	bool state;
 	jmp_buf my_buf;
 	int label;
-};
+}__attribute__((aligned(16)));
 
 struct co *waiting[40];
 int my_cnt=1;
