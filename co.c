@@ -22,7 +22,7 @@ struct co {
 	jmp_buf my_buf;
 	int label;
 	uint8_t stack[1<<15];
-}/*__attribute__((aligned(16)))*/;
+}__attribute__((aligned(16)));
 
 //struct co *waiting[40];
 int my_cnt=1;
