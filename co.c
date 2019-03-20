@@ -31,6 +31,7 @@ struct co waiting[40];
 void co_init() {
   current = (struct co*)&waiting[1];
   waiting[1].label = 1;
+  waiting[1].state = true;
   srand(time(NULL));
 }
 
