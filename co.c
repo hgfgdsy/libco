@@ -18,7 +18,7 @@ struct co {
 	bool state;
 	jmp_buf my_buf;
 	int label;
-	uint8_t stack[1<<20];
+	uint8_t stack[1<<12];
 }__attribute__((aligned(16)));
 
 //struct co *waiting[40];
@@ -50,7 +50,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   if(i==0){
   asm volatile("mov " SP ", %0 ; mov %1, " SP:
 		  "=g"(waiting[my_cnt].backup) :
-		  "g"(waiting[my_cnt].stack+(1<<20)));
+		  "g"(waiting[my_cnt].stack+(1<<12)));
   waiting[my_cnt].state = true;
   waiting[my_cnt].label = my_cnt;
 //  current = waiting[cnt];
