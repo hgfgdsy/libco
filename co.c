@@ -71,7 +71,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 //  current = waiting[cnt];
 //  printf("We start!\n"); 
   my_func(my_arg); // Test #2 hangs
-//  printf("Have you finished?\n");
+  printf("Have you finished?\n");
 //  printf("Kao a\n");
   current -> state = false;
 //  waiting[my_cnt+1] = waiting[current->label];
