@@ -38,10 +38,10 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   //  int my_temp = my_cnt;
 /*  struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
 
-  waiting[my_cnt] = coroutines;
+  waiting[my_cnt] = coroutines;*/
   waiting[my_cnt]->state = true;
   waiting[my_cnt]->label = my_cnt;
-  current = coroutines;*/
+//  current = coroutines;
   waiting[my_cnt] = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
   current = waiting[my_cnt];
   int i = setjmp(waiting[1]->my_buf);
@@ -49,8 +49,8 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   asm volatile("mov " SP ", %0; mov %1, " SP :
 		  "=g"(waiting[my_cnt]->backup) :
 		  "g"(waiting[my_cnt]->stack+(1<<15)));
-  waiting[my_cnt]->state = true;
-  waiting[my_cnt]->label = my_cnt;
+//  waiting[my_cnt]->state = true;
+//  waiting[my_cnt]->label = my_cnt;
 //  current = waiting[cnt];
   printf("We start!\n");
   func(arg); // Test #2 hangs
@@ -68,6 +68,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 //  return waiting[my_cnt];
   }
   else{
+  printf("We back!\n");
   return waiting[my_cnt];
   }
 //   return waiting[my_cnt];
