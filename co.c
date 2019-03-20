@@ -98,7 +98,7 @@ void co_wait(struct co *thd) {
 	  longjmp(waiting[se]->my_buf,waiting[se]->label);
   }
   else {
-	  free(thd);
+//	  free(thd);
   }
 }
 
