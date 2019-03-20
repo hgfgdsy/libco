@@ -5,13 +5,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include "co.h"
-/*
+
 #if defined(__i386__)
 # define SP "%%esp"
 #elif defined(__x86_64__)
   #define SP "%%rsp"
 #endif
-*/
+
 //srand(time(NULL));
 char sys1[10]="%%rsp",sys2[10]="%%esp";
 
