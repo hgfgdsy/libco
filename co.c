@@ -77,9 +77,9 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 //  waiting[my_cnt+1] = waiting[current->label];
 //  waiting[current->label] = waiting[my_cnt];
 //  my_cnt--;
-  bool decide = false;
+//  bool decide = false;
   int my_temp = current->label;
-  printf("Here?\n");
+/*  printf("Here?\n");
   while(!decide){
   select1 = rand()%(my_cnt) +1;
   printf("select1=\n");
@@ -88,7 +88,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   printf("So may here?\n");
   current = (struct co*)&waiting[select1];
   printf("Can you come here?\n");
-  longjmp(waiting[select1].my_buf,waiting[select1].label); 
+*/  longjmp(waiting[1].my_buf,waiting[1].label); 
   __stack_backup = waiting[my_temp].backup;
   asm volatile("mov %0, " SP : : "g"(__stack_backup));
 //  longjmp(waiting[select1]->my_buf,waiting[select1]->label);
