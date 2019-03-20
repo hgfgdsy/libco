@@ -32,6 +32,7 @@ void co_init() {
   waiting[1].label = 1;
   waiting[1].state = true;
   srand(time(NULL));
+  printf(SP);
 }
 
 struct co* co_start(const char *name, func_t func, void *arg) {
