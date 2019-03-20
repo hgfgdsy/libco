@@ -39,10 +39,10 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 /*  struct co *coroutines = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
 
   waiting[my_cnt] = coroutines;*/
+  //  current = coroutines;
+  waiting[my_cnt] = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
   waiting[my_cnt]->state = true;
   waiting[my_cnt]->label = my_cnt;
-//  current = coroutines;
-  waiting[my_cnt] = (struct co*)malloc(sizeof(struct co));printf("Are you?\t%d\n",my_cnt);
   current = waiting[my_cnt];
   int i = setjmp(waiting[1]->my_buf);
   if(i==0){
