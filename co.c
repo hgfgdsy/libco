@@ -7,7 +7,7 @@
 #include "co.h"
 
 #if defined(__i386__)
-  #define SP "%%esp"
+  define SP "%%esp"
 #elif defined(__x86_64__)
   #define SP "%%rsp"
 #endif
