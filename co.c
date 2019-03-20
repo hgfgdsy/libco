@@ -24,7 +24,7 @@ struct co {
 
 struct co *waiting[40];
 int my_cnt=1;
-
+int select;
 struct co *current;
 
 void co_init() {
@@ -58,13 +58,15 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   printf("Have you finished?\n");
   printf("Kao a\n");
   current -> state = false;
+  waiting[my_cnt+1] = waiting[current->label];
   waiting[current->label] = waiting[my_cnt];
   my_cnt--;
-  int select = rand()%(my_cnt) +1;
+  select = rand()%(my_cnt) +1;
   current = waiting[select];
-  longjmp(waiting[select]->my_buf,waiting[select]->label); 
-//  asm volatile("mov %0," SP : : "g"(->backup));
-//    return waiting[my_cnt];
+//  longjmp(waiting[select]->my_buf,waiting[select]->label); 
+  asm volatile("mov %0," SP : : "g"(waiting[my_cnt+2]->backup));
+  longjmp(waiting[select]->my_buf,waiting[select]->label);
+  //    return waiting[my_cnt];
   }
   else{
   return waiting[my_cnt];
