@@ -68,6 +68,7 @@ void co_yield() {
   printf("%d\t%d\n",my_val,current->label);
   if(my_val==0){
 	  int my_select = rand()%(my_cnt+1)+0;
+	  printf("yieldselect=%d\n",my_select);
 	  current = waiting[my_select];
 	  longjmp(waiting[my_select]->my_buf,waiting[my_select]->label);
   }
