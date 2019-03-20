@@ -65,7 +65,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 
 void co_yield() {
   int my_val = setjmp(current->my_buf);
-  printf("%d\n",my_val);
+  printf("%d\t%d\n",my_val,current->label);
   if(my_val==0){
 	  int my_select = rand()%(my_cnt+1)+0;
 	  current = waiting[my_select];
